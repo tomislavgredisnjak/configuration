@@ -1,0 +1,43 @@
+<div class="aui-message aui-message-info">
+    <p class="title">Announcement</p>
+    <p>If you defined an announcement in the configuration it will appear here.</p>
+    <p>$!announcement</p>
+</div>
+<div id="booklistHandle" data-count="$itemsPerPage" data-pagination="$paginationEnabled" data-announcement="$announcement">
+    <table class="aui">
+        <thead>
+            <tr>
+                <th id="bookitem-id">ID</th>
+                <th id="bookitem-title">Title</th>
+                <th id="bookitem-author">Author</th>
+                <th id="bookitem-action-delete"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td headers="bookitem-id">#</td>
+                <td headers="bookitem-title">Hardcover Book</td>
+                <td headers="bookitem-author">Hardcoded Author</td>
+                <td headers="bookitem-delete">Delete Book</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="javascript:prevPage()" id="btn_prev">Prev</a>
+    <a href="javascript:nextPage()" id="btn_next">Next</a>
+</div>
+<h1>Add a book</h1>
+<form class="aui" method="post" autocomplete="off">
+    <div class="field-group">
+        <label for="title">Title</label>
+            <input class="text medium-field" type="text" id="title" name="title">
+    </div>
+    <div class="field-group">
+        <label for="author">Author</label>
+            <input class="text medium-field" type="text" id="author" name="author">
+    </div>
+    <div class="buttons-container">
+    <div class="buttons">
+        <input class="button submit" onClick="save()" type="submit" value="Save">
+    </div>
+    </div>
+</form>

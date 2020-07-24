@@ -1,0 +1,18 @@
+{namespace ExerciseApp.SoyTemplates}
+
+/**
+ * Renders a table row <tr> element with provided data
+ * @param id
+ * @param title
+ * @param author
+ */
+{template .bookItemRow}
+    <tr>
+        <td headers="bookitem-id">{$id}</td>
+        <td headers="bookitem-title">{$title}</td>
+        <td headers="bookitem-author">{$author}</td>
+        <td headers="bookitem-action-delete">
+            <button data-target="{$id}" onClick="deleteBook('{$id}')" class="aui-button delete-book">Delete</button>
+        </td>
+    </tr>
+{/template}

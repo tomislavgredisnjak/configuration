@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Excercise App Configuration</title>
+    <meta name="decorator" content="atl.admin"/>
+    <meta name="admin.active.section" content="admin_plugins_menu/exercise-app-configuration-section"/>
+    <meta name="admin.active.tab" content="configuration-web-item"/>
+</head>
+<body>
+    <div class="aui-message aui-message-success">
+        <p>Configuration has been successfully saved.</p>
+        <p>Or has it!? Click on the button below to go back to the configuration page and check.</p>
+        <ul class="aui-nav-actions-list">
+            <li><a href="ConfigurationWebworkAction!default.jspa" class="aui-button aui-button-link">Back to configuration page.</a></li>
+        </ul>
+    </div>
+</body>
+</html>

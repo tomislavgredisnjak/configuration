@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${atlassianPlugin.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="exercise-plugin"/>
+    <!--
+          Web Resource module groups together static resources into a single reusable module
+          This one is the default one created when running atlas-create-jira-plugin command.
+      -->
+    <web-resource key="exercise-plugin-resources" name="exercise-plugin Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="exercise-plugin.css" location="/css/exercise-plugin.css"/>
+        <resource type="download" name="exercise-plugin.js" location="/js/exercise-plugin.js"/>
+        <resource type="download" name="images/" location="/images"/>
+        <context>exercise-plugin</context>
+    </web-resource>
+    <!--
+      Web Resource module groups together static resources into a single reusable module.
+      This one groups resources related to the "book list" web panel.
+  -->
+    <web-resource key="booklist-panel-resources" name="booklist-panel Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <transformation extension="js"><transformer key="jsI18n"/></transformation>
+        <transformation extension="soy"><transformer key="soyTransformer"/></transformation>
+        <!-- Soy templates are compiled to regular javascript -->
+        <resource type="download" name="booklist-panel-soy.js" location="/soy/booklist-soy-templates.soy"/>
+        <resource type="download" name="booklist-panel-plugin.css" location="/css/booklist-panel-plugin.css"/>
+        <resource type="download" name="booklist-panel-plugin.js" location="/js/booklist-panel-plugin.js"/>
+        <resource type="download" name="images/" location="/images"/>
+        <context>jira.view.issue</context>
+    </web-resource>
+    <!--
+          WebWork is responsible for serving templates (mapped to views),
+          handling information handed over by a web form
+          and interacting with the database. Typically used to serve configuration pages.
+      -->
+    <webwork1 key="configuration-webwork" name="Configuration Webwork" i18n-name-key="configuration-webwork.name">
+        <description key="configuration-webwork.description">The Configuration Webwork Plugin</description>
+        <actions>
+            <action name="net.veniture.exercise.jira.webwork.ConfigurationWebworkAction"
+                    alias="ConfigurationWebworkAction">
+                <view name="success">/templates/configuration-webwork/success.vm</view>
+                <view name="input">/templates/configuration-webwork/input.vm</view>
+                <view name="error">/templates/configuration-webwork/error.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+    <!--
+          AO module defines entities used in the app. Entities define interfaces which will build tables and
+          relations in the database.
+      -->
+    <ao key="ao-module">
+        <entity>net.veniture.exercise.jira.entity.Book</entity>
+    </ao>
+    <!--
+          Web Section defines a logical group of Web Items within a location on the page.
+      -->
+    <web-section name="Exercise App Configuration Section" i18n-name-key="exercise-app-configuration-section.name"
+                 key="exercise-app-configuration-section" location="admin_plugins_menu" weight="1000">
+        <description key="exercise-app-configuration-section.description">The Exercise App Configuration Section
+        </description>
+        <label key="exercise-app-configuration-section.label"/>
+    </web-section>
+
+    <!--
+        REST Resource module enabled REST capabilities in the plugin.
+        The module defines the base "path" of the plugin. The paths of other resources are defined
+        in appropriate classes. They do not need to be referenced in the atlassian-plugin.xml.
+        Jira will auto detect them.
+    -->
+    <rest name="Exercise Plugin REST Resource" i18n-name-key="exercise-plugin-rest.name" key="exercise-plugin-rest" path="/exercise" version="1.0">
+        <description key="exercise-plugin-rest.description">The Exercise Plugin REST Resource</description>
+    </rest>
+
+    <!--
+          Web Item modules define buttons and links and are placed within a given Web Section by specifying the "section" attribute
+      -->
+    <web-item name="Configuration Web Item" i18n-name-key="configuration-web-item.name" key="configuration-web-item"
+              section="admin_plugins_menu/exercise-app-configuration-section" weight="1000">
+        <description key="configuration-web-item.description">The Configuration Web Item</description>
+        <label key="configuration-web-item.label"/>
+        <link linkId="configuration-web-item-link">/secure/admin/ConfigurationWebworkAction!default.jspa</link>
+    </web-item>
+    <web-panel name="Book List Panel" i18n-name-key="book-list-panel.name" key="book-list-panel" location="atl.jira.view.issue.left.context" weight="1000">
+        <description key="book-list-panel.description">The Book List Panel Plugin</description>
+        <context-provider class="net.veniture.exercise.jira.contextprovider.BookListPanelContextProvider"></context-provider>
+        <resource name="view" type="velocity" location="templates/webpanel/booklistPanel.vm" />
+    </web-panel>
+</atlassian-plugin>

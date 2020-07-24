@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Excercise App Configuration</title>
+    <meta name="decorator" content="atl.admin"/>
+    <meta name="admin.active.section" content="admin_plugins_menu/exercise-app-configuration-section"/>
+    <meta name="admin.active.tab" content="configuration-web-item"/>
+</head>
+<body>
+<form class="aui" method="post" action="ConfigurationWebworkAction.jspa" autocomplete="off">
+    <fieldset class="group">
+        <legend><span>Book list options</span></legend>
+        <div class="checkbox">
+            <input class="checkbox" type="checkbox" name="enablePaging" id="enablePaging" $enablePaging>
+            <label for="enablePaging">Enable paging</label>
+        </div>
+    </fieldset>
+
+    <div class="field-group">
+        <label for="items-per-page">Books per page (if paging is enabled)</label>
+        <input class="long-field number" type="number" id="items-per-page" min="1" max="10" name="itemsPerPage" value="$itemsPerPage">
+        <div class="description">Number of books per page (1-10)</div>
+    </div>
+    
+    <fieldset>
+        <legend><span>Book list announcement</span></legend>
+        <div class="field-group">
+            <label for="booklist-announcement">Book list announcement</label>
+            <textarea class="textarea" name="announcement" id="booklist-announcement" placeholder="Your book list announcement here...">#if($announcement)$announcement#end</textarea>
+        </div>
+    </fieldset>
+    <div class="buttons-container">
+        <div class="buttons">
+            <input class="button submit" type="submit" value="Save">
+            <a class="cancel" href="#">Cancel</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>
